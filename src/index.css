@@ -184,3 +184,17 @@
     100% { background-position: 200% 0; }
   }
 }
+
+/* Premium edge gradients inspired by reference landing */
+@layer utilities {
+  .premium-gradient-bg {
+    background-color: hsl(var(--background));
+    background-image:
+      radial-gradient(48rem 24rem at 100% 0%, hsl(var(--warning-amber) / 0.12), transparent 60%),
+      radial-gradient(48rem 24rem at 0% 12%, hsl(var(--success-green) / 0.12), transparent 60%),
+      radial-gradient(48rem 24rem at 100% 85%, hsl(var(--accent) / 0.10), transparent 60%),
+      radial-gradient(48rem 24rem at 8% 100%, hsl(var(--primary) / 0.08), transparent 60%);
+    background-repeat: no-repeat;
+  }
+}
+
