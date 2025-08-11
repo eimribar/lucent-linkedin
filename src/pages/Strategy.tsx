@@ -23,11 +23,11 @@ const Strategy = () => {
           </p>
         </header>
 
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Core Narrative */}
-            <section className="border-gradient-brand rounded-2xl p-6">
+            <section id="narrative" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Core Narrative</h2>
               <p className="mt-2 text-sm md:text-base text-muted-foreground">
                 Ex‑Microsoft PM who learned the hard way that simple beats complex. Ships daily at Bounce AI. Believes in data over opinions.
@@ -35,7 +35,7 @@ const Strategy = () => {
             </section>
 
             {/* Pillars */}
-            <section className="border-gradient-brand rounded-2xl p-4 md:p-6">
+            <section id="pillars" className="border-gradient-brand rounded-2xl p-4 md:p-6 animate-fade-in">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-medium tracking-tight">Content Pillars + Unique Angles</h2>
                 <div className="hidden md:flex flex-wrap gap-2">
@@ -118,7 +118,7 @@ const Strategy = () => {
             </section>
 
             {/* Monthly Themes */}
-            <section className="border-gradient-brand rounded-2xl p-6">
+            <section id="themes" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Monthly Themes</h2>
               <ol className="mt-3 space-y-2 text-sm md:text-base text-muted-foreground list-decimal pl-5">
                 <li><span className="text-foreground font-medium">Month 1:</span> Simplicity beats complexity (her core belief)</li>
@@ -131,8 +131,19 @@ const Strategy = () => {
 
           {/* Right column */}
           <aside className="lg:col-span-1 space-y-6 lg:sticky lg:top-8">
+            {/* Quick Nav */}
+            <nav className="rounded-2xl p-4 bg-secondary/40 animate-fade-in">
+              <ul className="text-sm space-y-2">
+                <li><a className="story-link text-foreground" href="#narrative">Core Narrative</a></li>
+                <li><a className="story-link text-foreground" href="#pillars">Pillars</a></li>
+                <li><a className="story-link text-foreground" href="#themes">Monthly Themes</a></li>
+                <li><a className="story-link text-foreground" href="#weekly-mix">Weekly Mix</a></li>
+                <li><a className="story-link text-foreground" href="#hooks">Hook Templates</a></li>
+                <li><a className="story-link text-foreground" href="#integration">Bounce AI Integration</a></li>
+              </ul>
+            </nav>
             {/* Weekly Mix */}
-            <section className="border-gradient-brand rounded-2xl p-6">
+            <section id="weekly-mix" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Content Mix (Weekly)</h2>
               <ul className="mt-3 space-y-3 text-sm">
                 <li>
@@ -159,7 +170,7 @@ const Strategy = () => {
             </section>
 
             {/* Hooks */}
-            <section className="border-gradient-brand rounded-2xl p-6">
+            <section id="hooks" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Hook Templates</h2>
               <ol className="mt-3 space-y-2 list-decimal pl-5 text-sm text-muted-foreground">
                 <li><span className="text-foreground">The Failure Hook:</span> “I built a feature nobody wanted. 6 months. 2% adoption. Here's what I learned:”</li>
@@ -171,7 +182,7 @@ const Strategy = () => {
             </section>
 
             {/* Integration */}
-            <section className="border-gradient-brand rounded-2xl p-6">
+            <section id="integration" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Natural Bounce AI Integration</h2>
               <ul className="mt-2 text-sm text-muted-foreground space-y-1">
                 <li>• 30% of posts mention Bounce directly (customer wins, culture, differentiation)</li>
@@ -181,7 +192,7 @@ const Strategy = () => {
             </section>
 
             {/* CTA */}
-            <section className="rounded-2xl p-6 bg-secondary/40">
+            <section className="rounded-2xl p-6 bg-secondary/40 animate-fade-in">
               <h3 className="text-base font-medium">Ready to generate posts?</h3>
               <p className="mt-1 text-sm text-muted-foreground">Use your strategy to create on‑brand posts automatically.</p>
               <div className="mt-3 flex flex-wrap gap-3">
