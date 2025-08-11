@@ -143,7 +143,7 @@ const Onboarding = () => {
       <SEO title="Onboarding – Story Questions" description="Answer premium one-by-one prompts to shape your narrative." canonicalPath="/onboarding" />
 
       {/* Confetti Canvas Overlay */}
-      <Confetti ref={confettiRef} manualstart className="pointer-events-none fixed inset-0 z-30" />
+      <Confetti ref={confettiRef} manualstart className="pointer-events-none fixed inset-0 z-50" />
 
       <header className="fixed top-0 inset-x-0 z-20 px-4 py-3">
         <div className="mx-auto w-full max-w-2xl">
@@ -151,7 +151,7 @@ const Onboarding = () => {
         </div>
       </header>
 
-      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-16">
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-16 -mt-4 sm:-mt-6">
         {/* Headline shows the current question (1:1 minimal) */}
         <AnimatePresence mode="wait">
           <motion.h1 key={current.id} initial={{
@@ -166,13 +166,13 @@ const Onboarding = () => {
         }} transition={{
           duration: 0.25,
           ease: "easeOut"
-        }} className="mb-6 sm:mb-10 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
+        }} className="mb-4 sm:mb-8 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
             {current.prompt}
           </motion.h1>
         </AnimatePresence>
 
         {/* Input form with the custom vanish animation */}
-        <section className="w-full max-w-2xl">
+        <section className="w-full max-w-2xl -mt-1 sm:-mt-2 md:-mt-3">
           <PlaceholdersAndVanishInput placeholders={examples} onChange={() => {}} onSubmit={handleSubmit} />
 
           {/* Controls: Back and Skip */}
