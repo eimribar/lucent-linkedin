@@ -20,13 +20,14 @@ const NavBar = () => {
           <Link to="/lake" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Lake</Link>
           <Link to="/ideas" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Ideas</Link>
           <Link to="/generate" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Generation</Link>
+          <Link to="/onboarding" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Onboarding</Link>
           <Link to="/approvals" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Approvals</Link>
           <Link to="/schedule" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Schedule</Link>
           <Link to="/analytics" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Analytics</Link>
         </div>
 
         <div className="flex items-center gap-2">
-          <Button asChild variant="premium" size="pill" className="hidden md:inline-flex"><Link to="/ideas">Get Started</Link></Button>
+          <Button asChild variant="premium" size="pill" className="hidden md:inline-flex"><Link to="/onboarding">Get Started</Link></Button>
           <button aria-label="Open menu" className="md:hidden h-10 w-10 rounded-full hover:bg-muted grid place-items-center">
             <Menu className="opacity-80" />
           </button>

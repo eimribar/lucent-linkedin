@@ -12,6 +12,7 @@ import Generate from "./pages/Generate";
 import Approvals from "./pages/Approvals";
 import Schedule from "./pages/Schedule";
 import Analytics from "./pages/Analytics";
+import Onboarding from "./pages/Onboarding";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/lake" element={<Lake />} />
             <Route path="/ideas" element={<Ideas />} />
             <Route path="/generate" element={<Generate />} />
+            <Route path="/onboarding" element={<Onboarding />} />
             <Route path="/approvals" element={<Approvals />} />
             <Route path="/schedule" element={<Schedule />} />
             <Route path="/analytics" element={<Analytics />} />
