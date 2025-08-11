@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Trophy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
+import confetti from "canvas-confetti";
 const QUESTIONS = [{
   id: 1,
   prompt: "Tell us about a big win (project/achievement you're proud of)"
@@ -84,11 +85,20 @@ const Onboarding = () => {
       return next;
     });
     setXp(x => x + 10);
-    confettiRef.current?.fire({
-      particleCount: 120,
-      spread: 60,
-      startVelocity: 35
-    });
+    if (confettiRef.current) {
+      confettiRef.current.fire({
+        particleCount: 120,
+        spread: 60,
+        startVelocity: 35,
+      });
+    } else {
+      confetti({
+        particleCount: 120,
+        spread: 60,
+        startVelocity: 35,
+        zIndex: 9999,
+      });
+    }
 
     // Advance with a smooth transition small delay to let vanish effect start
     setTimeout(() => {
@@ -99,7 +109,7 @@ const Onboarding = () => {
       <SEO title="Onboarding – Story Questions" description="Answer premium one-by-one prompts to shape your narrative." canonicalPath="/onboarding" />
 
       {/* Confetti Canvas Overlay */}
-      <Confetti ref={confettiRef} manualstart className="pointer-events-none fixed inset-0 z-50" />
+      <Confetti ref={confettiRef} manualstart className="pointer-events-none fixed inset-0 z-[9999]" />
 
       <header className="fixed top-0 inset-x-0 z-20 px-4 py-3">
         <div className="mx-auto w-full max-w-2xl">
@@ -107,7 +117,7 @@ const Onboarding = () => {
         </div>
       </header>
 
-      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-16 -mt-4 sm:-mt-6">
+      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-14 -mt-6 sm:-mt-8">
         {/* Headline shows the current question (1:1 minimal) */}
         <AnimatePresence mode="wait">
           <motion.h1 key={current.id} initial={{
