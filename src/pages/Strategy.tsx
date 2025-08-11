@@ -14,9 +14,9 @@ const Strategy = () => {
         canonicalPath="/strategy"
       />
 
-      <main className="mx-auto max-w-6xl px-4 pt-10 pb-16 animate-enter">
+      <main className="mx-auto max-w-7xl px-4 pt-10 pb-16 animate-enter">
         {/* Core Narrative / Hero */}
-        <section id="narrative" className="animate-fade-in">
+        <section id="narrative" className="animate-fade-in scroll-mt-28">
           <StrategyHero
             name="Amnon Cohen"
             narrative="Ex‑Microsoft PM who learned the hard way that simple beats complex. Ships daily at Bounce AI. Believes in data over opinions."
@@ -24,15 +24,15 @@ const Strategy = () => {
         </section>
 
         {/* Layout */}
-        <div className="mt-8 grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[2fr_1fr]">
           {/* Left column */}
-          <div className="space-y-6 lg:col-span-2">
-            <section id="pillars" className="animate-fade-in">
+          <div className="space-y-6">
+            <section id="pillars" className="animate-fade-in scroll-mt-28">
               <PillarsAccordion />
             </section>
 
             {/* Monthly Themes */}
-            <section id="themes" className="animate-fade-in">
+            <section id="themes" className="animate-fade-in scroll-mt-28">
               <Card className="border-gradient-brand rounded-2xl">
                 <div className="p-6">
                   <h2 className="flex items-center gap-2 text-lg font-medium tracking-tight">

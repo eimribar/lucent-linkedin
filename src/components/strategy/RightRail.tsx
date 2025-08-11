@@ -4,7 +4,7 @@ import { CalendarDays, Flame, Lightbulb, Link2, Mountain, Rocket } from "lucide-
 
 export default function RightRail() {
   return (
-    <aside className="space-y-6 lg:sticky lg:top-8">
+    <aside className="space-y-6 lg:sticky lg:top-24">
       {/* Quick Nav */}
       <Card className="bg-secondary/40">
         <CardHeader>
