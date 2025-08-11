@@ -45,75 +45,31 @@ const Onboarding = () => {
   const confettiRef = useRef<ConfettiRef>(null);
   const current = useMemo(() => QUESTIONS[step], [step]);
   const completed = useMemo(() => answers.filter(a => a.trim().length > 0).length, [answers]);
-  const percent = useMemo(() => Math.round((completed / total) * 100), [completed, total]);
+  const percent = useMemo(() => Math.round(completed / total * 100), [completed, total]);
   const examples = useMemo(() => {
     switch (current.id) {
       case 1:
-        return [
-          "Shipped X in 6 weeks and grew Y%.",
-          "Closed a $Z deal with a 2-person team.",
-          "Reduced costs by 20% via automation.",
-        ];
+        return ["Shipped X in 6 weeks and grew Y%.", "Closed a $Z deal with a 2-person team.", "Reduced costs by 20% via automation."];
       case 2:
-        return [
-          "Launched too early; learned to validate first.",
-          "Missed a deadline, then fixed scope and cadence.",
-          "Picked the wrong stack and refactored in a week.",
-        ];
+        return ["Launched too early; learned to validate first.", "Missed a deadline, then fixed scope and cadence.", "Picked the wrong stack and refactored in a week."];
       case 3:
-        return [
-          "Built a caching layer that cut latency by 80%.",
-          "Refactored legacy code to unblock scaling.",
-          "Optimized a job from 1h to 5m with batching.",
-        ];
+        return ["Built a caching layer that cut latency by 80%.", "Refactored legacy code to unblock scaling.", "Optimized a job from 1h to 5m with batching."];
       case 4:
-        return [
-          "Meetings are overrated without written context.",
-          "Velocity beats perfect specs in most cases.",
-          "Docs-first > tickets-first for alignment.",
-        ];
+        return ["Meetings are overrated without written context.", "Velocity beats perfect specs in most cases.", "Docs-first > tickets-first for alignment."];
       case 5:
-        return [
-          "Default to simple architectures.",
-          "Measure before optimizing anything.",
-          "Write code others can delete easily.",
-        ];
+        return ["Default to simple architectures.", "Measure before optimizing anything.", "Write code others can delete easily."];
       case 6:
-        return [
-          "100% coverage often slows teams.",
-          "After X complexity, rewrite beats patching.",
-          "MVPs shouldn't look perfect—ship learnings.",
-        ];
+        return ["100% coverage often slows teams.", "After X complexity, rewrite beats patching.", "MVPs shouldn't look perfect—ship learnings."];
       case 7:
-        return [
-          "How fast we ship surprised me.",
-          "The no-meeting blocks are real.",
-          "Feedback cycles are hours, not days.",
-        ];
+        return ["How fast we ship surprised me.", "The no-meeting blocks are real.", "Feedback cycles are hours, not days."];
       case 8:
-        return [
-          "Ownership feels different here.",
-          "We prototype in prod safely.",
-          "Design and eng pair weekly.",
-        ];
+        return ["Ownership feels different here.", "We prototype in prod safely.", "Design and eng pair weekly."];
       case 9:
-        return [
-          "Users loved Y, not X—data revealed it.",
-          "A small toggle changed adoption.",
-          "We found a hidden power-user segment.",
-        ];
+        return ["Users loved Y, not X—data revealed it.", "A small toggle changed adoption.", "We found a hidden power-user segment."];
       case 10:
-        return [
-          "Agents will handle 80% of workflows.",
-          "Tooling becomes outcomes APIs.",
-          "Open models win via ecosystem.",
-        ];
+        return ["Agents will handle 80% of workflows.", "Tooling becomes outcomes APIs.", "Open models win via ecosystem."];
       default:
-        return [
-          "Share your answer...",
-          "Keep it concise (1–2 sentences)",
-          "Press Enter to submit",
-        ];
+        return ["Share your answer...", "Keep it concise (1–2 sentences)", "Press Enter to submit"];
     }
   }, [current.id]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -166,7 +122,7 @@ const Onboarding = () => {
         }} transition={{
           duration: 0.25,
           ease: "easeOut"
-        }} className="mb-4 sm:mb-8 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
+        }} className="mb-4 sm:mb-8 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand mx-0 px-0 py-[30px]">
             {current.prompt}
           </motion.h1>
         </AnimatePresence>
@@ -177,10 +133,12 @@ const Onboarding = () => {
 
           {/* Controls: Back and Skip */}
           <nav className="mt-3 flex items-center justify-center gap-3">
-            <Button type="button" variant="ghost" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>
+            <Button type="button" variant="ghost" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0} className="py-[30px]">
               Back
             </Button>
-            <Button type="button" variant="outline" onClick={() => { if (step < total - 1) setStep(s => s + 1); }}>
+            <Button type="button" variant="outline" onClick={() => {
+            if (step < total - 1) setStep(s => s + 1);
+          }} className="py-[30px]">
               Skip
             </Button>
           </nav>
