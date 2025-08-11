@@ -1,6 +1,7 @@
 import SEO from "@/components/seo/SEO";
 import { Badge } from "@/components/ui/badge";
 import { sampleProfile } from "@/data/sampleProfile";
+import { sampleOnboarding } from "@/data/sampleOnboarding";
 
 const Pill = ({ children }: { children: string }) => (
   <Badge variant="secondary" className="rounded-full px-3 py-1 text-xs">{children}</Badge>
@@ -111,6 +112,28 @@ const Profile = () => {
             </div>
           </section>
         ) : null}
+
+        {/* Onboarding answers */}
+        <section className="mt-6 border-gradient-brand rounded-2xl p-6">
+          <h2 className="text-lg font-medium tracking-tight">Your story</h2>
+          {(["Your Experiences","Your Beliefs","Your Bounce AI Story","Your Vision"] as const).map((cat) => {
+            const items = sampleOnboarding.filter((q) => q.category === cat);
+            if (!items.length) return null;
+            return (
+              <div key={cat} className="mt-4">
+                <div className="text-sm font-medium text-foreground mb-2">{cat}</div>
+                <ol className="space-y-3">
+                  {items.map((item) => (
+                    <li key={item.id} className="rounded-xl bg-secondary/40 p-4">
+                      <div className="text-sm font-medium text-foreground">{item.id}. {item.question}</div>
+                      <p className="mt-1 text-sm text-muted-foreground whitespace-pre-line">{item.answer}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            );
+          })}
+        </section>
       </main>
     </div>
   );
