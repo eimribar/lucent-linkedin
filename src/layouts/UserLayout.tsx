@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import UserNav from "@/components/layout/UserNav";
 
 interface UserLayoutProps {
   children: ReactNode;
@@ -8,6 +9,7 @@ interface UserLayoutProps {
 const UserLayout = ({ children }: UserLayoutProps) => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <UserNav />
       {children}
     </div>
   );

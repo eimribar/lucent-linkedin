@@ -110,68 +110,39 @@ const SwipeDeck = () => {
     );
   }
 
-return (
-    <div className="relative">
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
-        <div>
-          <SwipeCard
-            text={active.text}
-            author={active.author}
-            onSwipe={(dir) => {
-              if (dir === "right") approve();
-              if (dir === "left") decline();
-            }}
-          />
-          <div className="mt-4 flex items-center justify-between">
-            <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
-              <div className="h-1 bg-foreground/80" style={{ width: `${progress}%` }} />
-            </div>
-            <span className="ml-3 text-xs text-muted-foreground">
-              {current + 1} / {total}
-            </span>
-          </div>
+  return (
+    <div className="relative max-w-[720px] mx-auto">
+      <div className="border-gradient-brand rounded-2xl p-3 md:p-5">
+        <SwipeCard
+          text={active.text}
+          author={active.author}
+          onSwipe={(dir) => {
+            if (dir === "right") approve();
+            if (dir === "left") decline();
+          }}
+        />
+        <div className="mt-4 h-1 w-full bg-muted rounded-full overflow-hidden">
+          <div className="h-1 bg-foreground/80" style={{ width: `${progress}%` }} />
         </div>
+        <div className="mt-2 text-center text-xs text-muted-foreground">
+          {current + 1} / {total}
+        </div>
+      </div>
 
-        <aside className="elevation-2 bg-card rounded-2xl p-6">
-          <h3 className="text-lg font-medium tracking-tight">Actions</h3>
-          <p className="mt-2 text-sm text-muted-foreground">Approve, request changes, or quickly edit the draft.</p>
+      <div className="mt-6 grid grid-cols-3 gap-3">
+        <Button variant="destructive" size="pill" onClick={decline} aria-label="Request changes">
+          Decline
+        </Button>
+        <Button variant="outline" size="pill" onClick={openEdit} aria-label="Edit">
+          Edit
+        </Button>
+        <Button variant="premium" size="pill" onClick={approve} aria-label="Approve">
+          Approve
+        </Button>
+      </div>
 
-          <div className="mt-6 grid grid-cols-1 gap-3">
-            <Button variant="premium" size="pill" onClick={approve} aria-label="Approve">
-              Approve
-            </Button>
-            <Button variant="destructive" size="pill" onClick={decline} aria-label="Request changes">
-              Decline
-            </Button>
-
-            <Dialog open={editOpen} onOpenChange={setEditOpen}>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="pill" onClick={openEdit} aria-label="Edit">
-                  Edit
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[560px]">
-                <DialogHeader>
-                  <DialogTitle>Edit draft</DialogTitle>
-                </DialogHeader>
-                <Textarea
-                  value={draftText}
-                  onChange={(e) => setDraftText(e.target.value)}
-                  className="min-h-[200px]"
-                  aria-label="Draft text"
-                />
-                <DialogFooter>
-                  <Button variant="soft" onClick={() => setEditOpen(false)}>Cancel</Button>
-                  <Button variant="premium" onClick={saveEdit}>Save</Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
-
-          <div className="mt-8 text-xs text-muted-foreground">
-            Tip: Swipe → approve, ← decline. Press A/D to approve/decline and E to edit.
-          </div>
-        </aside>
+      <div className="mt-4 text-center text-xs text-muted-foreground">
+        Tip: Swipe → approve, ← decline. Press A/D to approve/decline and E to edit.
       </div>
 
       {/* XP pill bottom-center */}
@@ -184,6 +155,25 @@ return (
           </div>
         </div>
       </div>
+
+      {/* Edit dialog */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="sm:max-w-[560px]">
+          <DialogHeader>
+            <DialogTitle>Edit draft</DialogTitle>
+          </DialogHeader>
+          <Textarea
+            value={draftText}
+            onChange={(e) => setDraftText(e.target.value)}
+            className="min-h-[200px]"
+            aria-label="Draft text"
+          />
+          <DialogFooter>
+            <Button variant="soft" onClick={() => setEditOpen(false)}>Cancel</Button>
+            <Button variant="premium" onClick={saveEdit}>Save</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
