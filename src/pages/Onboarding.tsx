@@ -1,6 +1,7 @@
 import SEO from "@/components/seo/SEO";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti";
+import { Button } from "@/components/ui/button";
 import { Trophy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
@@ -86,7 +87,7 @@ const Onboarding = () => {
         }} transition={{
           duration: 0.25,
           ease: "easeOut"
-        }} className="mb-10 sm:mb-20 text-3xl font-semibold tracking-tight text-center sm:text-3xl">
+        }} className="mb-10 sm:mb-20 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
             {current.prompt}
           </motion.h1>
         </AnimatePresence>
@@ -94,9 +95,17 @@ const Onboarding = () => {
         {/* Input form with the custom vanish animation */}
         <section className="w-full max-w-2xl">
           <PlaceholdersAndVanishInput placeholders={[current.prompt]} onChange={() => {}} onSubmit={handleSubmit} />
-        </section>
 
-        {/* Subtle, graceful gamification at the bottom */}
+          {/* Controls: Back and Skip */}
+          <nav className="mt-4 flex items-center justify-between">
+            <Button type="button" variant="ghost" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>
+              Back
+            </Button>
+            <Button type="button" variant="outline" onClick={() => { if (step < total - 1) setStep(s => s + 1); }}>
+              Skip
+            </Button>
+          </nav>
+        </section>
         <aside className="fixed bottom-6 inset-x-0 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 border border-border bg-card/80 supports-[backdrop-filter]:bg-card/60 backdrop-blur shadow-sm text-xs sm:text-sm">
             <Trophy className="h-4 w-4 text-foreground/70" />
