@@ -11,6 +11,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { Trophy } from "lucide-react";
+import confetti from "canvas-confetti";
 
 interface PostItem {
   id: string;
@@ -44,6 +46,8 @@ const SwipeDeck = () => {
   const [current, setCurrent] = useState(0);
   const [editOpen, setEditOpen] = useState(false);
   const [draftText, setDraftText] = useState("");
+  const [xp, setXp] = useState(0);
+  const [streak, setStreak] = useState(0);
 
   const total = posts.length;
   const active = posts[current];
@@ -57,11 +61,20 @@ const SwipeDeck = () => {
 
   const approve = () => {
     toast.success("Approved", { description: "Post moved to Schedule." });
+    setXp((x) => x + 5);
+    setStreak((s) => {
+      const ns = s + 1;
+      if (ns % 5 === 0) {
+        confetti({ particleCount: 100, spread: 60, startVelocity: 35, zIndex: 9999 });
+      }
+      return ns;
+    });
     moveNext();
   };
 
   const decline = () => {
     toast.error("Needs revision", { description: "Sent back to Drafts." });
+    setStreak(0);
     moveNext();
   };
 
@@ -73,6 +86,7 @@ const SwipeDeck = () => {
   const saveEdit = () => {
     setPosts((list) => list.map((p, i) => (i === current ? { ...p, text: draftText } : p)));
     setEditOpen(false);
+    setXp((x) => x + 2);
     toast("Edited", { description: "Changes saved to this draft." });
   };
 
@@ -96,67 +110,80 @@ const SwipeDeck = () => {
     );
   }
 
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
-      <div>
-        <SwipeCard
-          text={active.text}
-          author={active.author}
-          onSwipe={(dir) => {
-            if (dir === "right") approve();
-            if (dir === "left") decline();
-          }}
-        />
-        <div className="mt-4 flex items-center justify-between">
-          <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
-            <div className="h-1 bg-foreground/80" style={{ width: `${progress}%` }} />
+return (
+    <div className="relative">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 items-start">
+        <div>
+          <SwipeCard
+            text={active.text}
+            author={active.author}
+            onSwipe={(dir) => {
+              if (dir === "right") approve();
+              if (dir === "left") decline();
+            }}
+          />
+          <div className="mt-4 flex items-center justify-between">
+            <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
+              <div className="h-1 bg-foreground/80" style={{ width: `${progress}%` }} />
+            </div>
+            <span className="ml-3 text-xs text-muted-foreground">
+              {current + 1} / {total}
+            </span>
           </div>
-          <span className="ml-3 text-xs text-muted-foreground">
-            {current + 1} / {total}
-          </span>
         </div>
+
+        <aside className="elevation-2 bg-card rounded-2xl p-6">
+          <h3 className="text-lg font-medium tracking-tight">Actions</h3>
+          <p className="mt-2 text-sm text-muted-foreground">Approve, request changes, or quickly edit the draft.</p>
+
+          <div className="mt-6 grid grid-cols-1 gap-3">
+            <Button variant="premium" size="pill" onClick={approve} aria-label="Approve">
+              Approve
+            </Button>
+            <Button variant="destructive" size="pill" onClick={decline} aria-label="Request changes">
+              Decline
+            </Button>
+
+            <Dialog open={editOpen} onOpenChange={setEditOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" size="pill" onClick={openEdit} aria-label="Edit">
+                  Edit
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[560px]">
+                <DialogHeader>
+                  <DialogTitle>Edit draft</DialogTitle>
+                </DialogHeader>
+                <Textarea
+                  value={draftText}
+                  onChange={(e) => setDraftText(e.target.value)}
+                  className="min-h-[200px]"
+                  aria-label="Draft text"
+                />
+                <DialogFooter>
+                  <Button variant="soft" onClick={() => setEditOpen(false)}>Cancel</Button>
+                  <Button variant="premium" onClick={saveEdit}>Save</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+
+          <div className="mt-8 text-xs text-muted-foreground">
+            Tip: Swipe → approve, ← decline. Press A/D to approve/decline and E to edit.
+          </div>
+        </aside>
       </div>
 
-      <aside className="elevation-2 bg-card rounded-2xl p-6">
-        <h3 className="text-lg font-medium tracking-tight">Actions</h3>
-        <p className="mt-2 text-sm text-muted-foreground">Approve, request changes, or quickly edit the draft.</p>
-
-        <div className="mt-6 grid grid-cols-1 gap-3">
-          <Button variant="premium" size="pill" onClick={approve} aria-label="Approve">
-            Approve
-          </Button>
-          <Button variant="destructive" size="pill" onClick={decline} aria-label="Request changes">
-            Decline
-          </Button>
-
-          <Dialog open={editOpen} onOpenChange={setEditOpen}>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="pill" onClick={openEdit} aria-label="Edit">
-                Edit
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[560px]">
-              <DialogHeader>
-                <DialogTitle>Edit draft</DialogTitle>
-              </DialogHeader>
-              <Textarea
-                value={draftText}
-                onChange={(e) => setDraftText(e.target.value)}
-                className="min-h-[200px]"
-                aria-label="Draft text"
-              />
-              <DialogFooter>
-                <Button variant="soft" onClick={() => setEditOpen(false)}>Cancel</Button>
-                <Button variant="premium" onClick={saveEdit}>Save</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+      {/* XP pill bottom-center */}
+      <div className="fixed inset-x-0 bottom-6 flex justify-center pointer-events-none">
+        <div className="pointer-events-auto border-gradient-brand elevation-2 rounded-full px-3 py-1.5 text-xs bg-card">
+          <div className="flex items-center gap-2">
+            <Trophy size={14} className="opacity-80" />
+            <span className="font-medium">{xp} XP</span>
+            {streak > 1 && <span className="text-muted-foreground">Streak {streak}</span>}
+          </div>
         </div>
-
-        <div className="mt-8 text-xs text-muted-foreground">
-          Tip: Swipe → approve, ← decline. Press A/D to approve/decline and E to edit.
-        </div>
-      </aside>
+      </div>
     </div>
   );
 };

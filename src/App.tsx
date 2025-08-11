@@ -35,7 +35,8 @@ const App = () => (
             <Route path="/import" element={<MainLayout><ImportPage /></MainLayout>} />
             <Route path="/onboarding" element={<OnboardingLayout><Onboarding /></OnboardingLayout>} />
             <Route path="/strategy" element={<UserLayout><Strategy /></UserLayout>} />
-            <Route path="/approvals" element={<UserLayout><Approvals /></UserLayout>} />
+            <Route path="/approve" element={<UserLayout><Approvals /></UserLayout>} />
+            <Route path="/approvals" element={<Navigate to="/approve" replace />} />
             <Route path="/schedule" element={<MainLayout><Schedule /></MainLayout>} />
             <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />
             {/* Fallback for unknown routes */}
