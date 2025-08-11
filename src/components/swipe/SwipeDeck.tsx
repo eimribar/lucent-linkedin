@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import SwipeCard from "@/components/swipe/SwipeCard";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -76,6 +76,17 @@ const SwipeDeck = () => {
     toast("Edited", { description: "Changes saved to this draft." });
   };
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (editOpen) return;
+      const key = e.key.toLowerCase();
+      if (key === "arrowright" || key === "a") approve();
+      if (key === "arrowleft" || key === "d") decline();
+      if (key === "e") openEdit();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [editOpen]);
   if (!active) {
     return (
       <div className="elevation-1 bg-card rounded-2xl p-8 text-center">
@@ -143,7 +154,7 @@ const SwipeDeck = () => {
         </div>
 
         <div className="mt-8 text-xs text-muted-foreground">
-          Tip: Swipe right to approve, left to decline. Use the Edit dialog for quick fixes.
+          Tip: Swipe → approve, ← decline. Press A/D to approve/decline and E to edit.
         </div>
       </aside>
     </div>

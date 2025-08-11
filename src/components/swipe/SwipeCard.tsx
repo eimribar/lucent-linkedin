@@ -15,6 +15,8 @@ const SwipeCard = ({ text, author, onSwipe }: SwipeCardProps) => {
   const rotate = useTransform(x, [-200, 0, 200], [-8, 0, 8]);
   const rightOpacity = useTransform(x, [0, 150], [0, 0.05]);
   const leftOpacity = useTransform(x, [0, -150], [0, 0.05]);
+  const approveBadge = useTransform(x, [60, 160], [0, 1]);
+  const declineBadge = useTransform(x, [-60, -160], [0, 1]);
 
   const handleDragEnd = (_: any, info: any) => {
     setDragging(false);
@@ -26,7 +28,7 @@ const SwipeCard = ({ text, author, onSwipe }: SwipeCardProps) => {
   const progress = Math.min(1, count / CHARACTER_LIMIT);
 
   return (
-    <div className="relative w-full max-w-[440px] mx-auto">
+    <div className="relative w-full max-w-[440px] mx-auto animate-enter">
       <motion.div
         className="relative bg-card elevation-2 rounded-3xl overflow-hidden"
         style={{ x, rotate }}
@@ -39,6 +41,13 @@ const SwipeCard = ({ text, author, onSwipe }: SwipeCardProps) => {
       >
         <motion.div className="pointer-events-none absolute inset-0 bg-success/10" style={{ opacity: rightOpacity }} />
         <motion.div className="pointer-events-none absolute inset-0 bg-destructive/10" style={{ opacity: leftOpacity }} />
+
+        <motion.div className="pointer-events-none absolute top-6 left-6" style={{ opacity: approveBadge }}>
+          <span className="text-xs font-medium tracking-widest uppercase px-2 py-1 rounded-md border border-success/40 text-success/90 bg-success/10">Approve</span>
+        </motion.div>
+        <motion.div className="pointer-events-none absolute top-6 right-6" style={{ opacity: declineBadge }}>
+          <span className="text-xs font-medium tracking-widest uppercase px-2 py-1 rounded-md border border-destructive/40 text-destructive bg-destructive/10">Decline</span>
+        </motion.div>
 
         <div className="bg-muted/50 h-11 flex items-center px-4">
           <span className="text-xs text-muted-foreground">Draft · LinkedIn Post</span>

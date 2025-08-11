@@ -41,7 +41,7 @@ const Generate = () => {
         canonicalPath="/generate"
       />
       <NavBar />
-      <main className="mx-auto max-w-[1440px] px-4 py-12">
+      <main className="mx-auto max-w-[1440px] px-4 py-12 animate-enter">
         <header>
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">Content Generation</h1>
           <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl">
@@ -50,7 +50,7 @@ const Generate = () => {
         </header>
 
         <section className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <Card className="elevation-1">
+          <Card className="elevation-1 animate-fade-in">
             <CardHeader>
               <CardTitle className="tracking-tight">Editor</CardTitle>
               <CardDescription>Choose tone and length, then iterate quickly.</CardDescription>
@@ -82,7 +82,7 @@ const Generate = () => {
             </CardContent>
           </Card>
 
-          <aside className="elevation-2 bg-card rounded-2xl p-6">
+          <aside className="elevation-2 bg-card rounded-2xl p-6 animate-fade-in">
             <h3 className="text-lg font-medium tracking-tight">Preview</h3>
             <p className="mt-1 text-sm text-muted-foreground">Tone: {tone} • Length: {length} • {charCount} chars</p>
             <div className="mt-4 whitespace-pre-wrap text-sm leading-6">{draft}</div>

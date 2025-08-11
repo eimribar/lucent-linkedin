@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Film, StickyNote, Link as LinkIcon } from "lucide-react";
 
 interface LakeItem {
   id: string;
@@ -57,7 +58,7 @@ const Lake = () => {
         canonicalPath="/lake"
       />
       <NavBar />
-      <main className="mx-auto max-w-[1440px] px-4 py-12">
+      <main className="mx-auto max-w-[1440px] px-4 py-12 animate-enter">
         <header>
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">Content Lake</h1>
           <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl">
@@ -84,9 +85,10 @@ const Lake = () => {
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((it) => (
-              <Card key={it.id} className="elevation-1">
+              <Card key={it.id} className="elevation-1 hover-scale animate-fade-in">
                 <CardHeader>
                   <CardTitle className="text-base tracking-tight flex items-center gap-2">
+                    {it.type === "clip" ? <Film className="h-4 w-4 opacity-80" aria-hidden /> : it.type === "note" ? <StickyNote className="h-4 w-4 opacity-80" aria-hidden /> : <LinkIcon className="h-4 w-4 opacity-80" aria-hidden />}
                     <Badge variant="secondary" className="capitalize">{it.type}</Badge>
                     <span className="font-medium">{it.title}</span>
                   </CardTitle>

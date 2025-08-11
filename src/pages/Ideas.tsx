@@ -2,6 +2,7 @@ import { useState } from "react";
 import NavBar from "@/components/layout/NavBar";
 import SEO from "@/components/seo/SEO";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -28,6 +29,9 @@ const Ideas = () => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("");
+  const [sort, setSort] = useState<"score-desc" | "recent">("score-desc");
+
+  const displayIdeas = [...ideas].sort((a, b) => (sort === "score-desc" ? b.score - a.score : Number(b.id) - Number(a.id)));
 
   const addIdea = () => {
     if (!title.trim()) return toast.error("Please add a title");
@@ -51,7 +55,7 @@ const Ideas = () => {
         canonicalPath="/ideas"
       />
       <NavBar />
-      <main className="mx-auto max-w-[1440px] px-4 py-12">
+      <main className="mx-auto max-w-[1440px] px-4 py-12 animate-enter">
         <header>
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">Content Ideas</h1>
           <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl">
@@ -60,27 +64,39 @@ const Ideas = () => {
         </header>
 
         <section className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {ideas.map((idea) => (
-              <Card key={idea.id} className="elevation-1">
-                <CardHeader>
-                  <CardTitle className="text-lg tracking-tight">{idea.title}</CardTitle>
-                  <CardDescription className="flex items-center gap-2">
-                    <Badge variant="secondary">{idea.category || "General"}</Badge>
-                    <span className="text-xs">Score: {idea.score}</span>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{idea.details}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <Button size="sm" variant="soft" onClick={() => upvote(idea.id)}>Upvote</Button>
-                    <Button asChild size="sm" variant="outline" onClick={() => toast("Promoted to Generate", { description: idea.title })}>
-                      <Link to="/generate">Promote to Generate</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Ideas: {ideas.length}</span>
+              <Select value={sort} onValueChange={(v) => setSort(v as any)}>
+                <SelectTrigger className="w-[180px]"><SelectValue placeholder="Sort" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="score-desc">Score (top)</SelectItem>
+                  <SelectItem value="recent">Recent</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {displayIdeas.map((idea) => (
+                <Card key={idea.id} className="elevation-1 hover-scale animate-fade-in">
+                  <CardHeader>
+                    <CardTitle className="text-lg tracking-tight">{idea.title}</CardTitle>
+                    <CardDescription className="flex items-center gap-2">
+                      <Badge variant="secondary">{idea.category || "General"}</Badge>
+                      <span className="text-xs">Score: {idea.score}</span>
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{idea.details}</p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <Button size="sm" variant="soft" onClick={() => upvote(idea.id)}>Upvote</Button>
+                      <Button asChild size="sm" variant="outline" onClick={() => toast("Promoted to Generate", { description: idea.title })}>
+                        <Link to="/generate">Promote to Generate</Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
 
           <aside className="elevation-2 bg-card rounded-2xl p-6">
