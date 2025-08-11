@@ -1,4 +1,3 @@
-import NavBar from "@/components/layout/NavBar";
 import SEO from "@/components/seo/SEO";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,13 +11,12 @@ const Pill = ({ children }: { children: string }) => (
 
 const Strategy = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground premium-gradient-bg">
+    <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="Content Strategy – LinkedIn Content Engine"
         description="Crisp pillars, cadence, tone, and audience—tailored to your profile."
         canonicalPath="/strategy"
       />
-      <NavBar />
 
       <main className="mx-auto max-w-[1200px] px-4 py-12 animate-enter">
         <header className="max-w-3xl">

@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import MainLayout from "./layouts/MainLayout";
 import OnboardingLayout from "./layouts/OnboardingLayout";
 import ImportPage from "./pages/Import";
 import Strategy from "./pages/Strategy";
+import UserLayout from "./layouts/UserLayout";
 
 const queryClient = new QueryClient();
 
@@ -32,10 +32,10 @@ const App = () => (
             <Route path="/lake" element={<MainLayout><Lake /></MainLayout>} />
             <Route path="/ideas" element={<MainLayout><Ideas /></MainLayout>} />
             <Route path="/generate" element={<MainLayout><Generate /></MainLayout>} />
-            <Route path="/onboarding" element={<OnboardingLayout><Onboarding /></OnboardingLayout>} />
             <Route path="/import" element={<MainLayout><ImportPage /></MainLayout>} />
-            <Route path="/strategy" element={<MainLayout><Strategy /></MainLayout>} />
-            <Route path="/approvals" element={<MainLayout><Approvals /></MainLayout>} />
+            <Route path="/onboarding" element={<OnboardingLayout><Onboarding /></OnboardingLayout>} />
+            <Route path="/strategy" element={<UserLayout><Strategy /></UserLayout>} />
+            <Route path="/approvals" element={<UserLayout><Approvals /></UserLayout>} />
             <Route path="/schedule" element={<MainLayout><Schedule /></MainLayout>} />
             <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />
             {/* Fallback for unknown routes */}
