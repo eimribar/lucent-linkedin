@@ -1,24 +1,23 @@
-import NavBar from "@/components/layout/NavBar";
 import SEO from "@/components/seo/SEO";
 import SwipeDeck from "@/components/swipe/SwipeDeck";
 
 const Approvals = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground premium-gradient-bg">
+    <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="Approvals – LinkedIn Content Engine"
         description="Approve, decline, or edit posts with a fast Tinder-style workflow."
         canonicalPath="/approvals"
       />
-      <NavBar />
-      <main className="mx-auto max-w-[1440px] px-4 py-12 animate-enter">
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">Approvals</h1>
-        <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-2xl">
+      <main className="mx-auto max-w-2xl px-4 py-16 animate-enter">
+        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-gradient-brand">Approvals</h1>
+        <p className="mt-4 text-base md:text-lg text-muted-foreground text-center">
           Quickly review drafts: swipe right to approve, left to decline, tap to edit.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 border-gradient-brand rounded-2xl p-3 md:p-5">
           <SwipeDeck />
         </div>
+        <p className="mt-3 text-center text-xs text-muted-foreground">Tip: A = Approve, D = Decline, E = Edit</p>
       </main>
     </div>
   );
