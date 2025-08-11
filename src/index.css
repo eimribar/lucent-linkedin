@@ -220,6 +220,7 @@
 
 @layer utilities {
   .bg-gradient-brand { background-image: var(--gradient-brand); }
+  .bg-gradient-brand-soft { background-image: var(--gradient-brand-soft); }
   .text-gradient-brand {
     background-image: var(--gradient-brand);
     -webkit-background-clip: text;
