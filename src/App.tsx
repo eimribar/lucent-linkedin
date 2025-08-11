@@ -15,6 +15,8 @@ import Analytics from "./pages/Analytics";
 import Onboarding from "./pages/Onboarding";
 import MainLayout from "./layouts/MainLayout";
 import OnboardingLayout from "./layouts/OnboardingLayout";
+import ImportPage from "./pages/Import";
+import Strategy from "./pages/Strategy";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ const App = () => (
             <Route path="/ideas" element={<MainLayout><Ideas /></MainLayout>} />
             <Route path="/generate" element={<MainLayout><Generate /></MainLayout>} />
             <Route path="/onboarding" element={<OnboardingLayout><Onboarding /></OnboardingLayout>} />
+            <Route path="/import" element={<MainLayout><ImportPage /></MainLayout>} />
+            <Route path="/strategy" element={<MainLayout><Strategy /></MainLayout>} />
             <Route path="/approvals" element={<MainLayout><Approvals /></MainLayout>} />
             <Route path="/schedule" element={<MainLayout><Schedule /></MainLayout>} />
             <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />

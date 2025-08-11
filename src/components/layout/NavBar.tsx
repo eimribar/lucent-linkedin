@@ -17,10 +17,11 @@ const NavBar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
+          <Link to="/import" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Import</Link>
+          <Link to="/strategy" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Strategy</Link>
           <Link to="/lake" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Lake</Link>
           <Link to="/ideas" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Ideas</Link>
           <Link to="/generate" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Generation</Link>
-          
           <Link to="/approvals" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Approvals</Link>
           <Link to="/schedule" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Schedule</Link>
           <Link to="/analytics" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Analytics</Link>
