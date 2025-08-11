@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Film, StickyNote, Link as LinkIcon } from "lucide-react";
+import { Film, StickyNote, Link as LinkIcon, Star, StarOff } from "lucide-react";
 
 interface LakeItem {
   id: string;
@@ -15,28 +15,34 @@ interface LakeItem {
   title: string;
   source: string;
   tags: string[];
+  url?: string;
+  starred?: boolean;
 }
 
 const initialItems: LakeItem[] = [
-  { id: "1", type: "clip", title: "Customer interview – onboarding friction", source: "Notion", tags: ["onboarding", "customer"] },
-  { id: "2", type: "note", title: "3 hooks for talking about pricing transparently", source: "Apple Notes", tags: ["pricing", "messaging"] },
-  { id: "3", type: "link", title: "Report: 2025 SaaS benchmarks", source: "External", tags: ["benchmarks", "saas"] },
-  { id: "4", type: "clip", title: "Founder clip: roadmap tradeoffs", source: "Drive", tags: ["product", "strategy"] },
+  { id: "1", type: "clip", title: "Customer interview – onboarding friction", source: "Notion", tags: ["onboarding", "customer"], starred: true },
+  { id: "2", type: "note", title: "3 hooks for talking about pricing transparently", source: "Apple Notes", tags: ["pricing", "messaging"], starred: false },
+  { id: "3", type: "link", title: "Report: 2025 SaaS benchmarks", source: "External", tags: ["benchmarks", "saas"], url: "https://example.com/saas-benchmarks", starred: false },
+  { id: "4", type: "clip", title: "Founder clip: roadmap tradeoffs", source: "Drive", tags: ["product", "strategy"], starred: false },
 ];
 
 const Lake = () => {
   const [query, setQuery] = useState("");
   const [type, setType] = useState<string>("all");
   const [items, setItems] = useState<LakeItem[]>(initialItems);
-
+  const [starOnly, setStarOnly] = useState(false);
+  const [urlInput, setUrlInput] = useState("");
   const filtered = useMemo(() => {
-    return items.filter((it) => {
-      const matchesType = type === "all" || it.type === type;
-      const q = query.toLowerCase();
-      const matchesQuery = !q || it.title.toLowerCase().includes(q) || it.tags.some((t) => t.includes(q));
-      return matchesType && matchesQuery;
-    });
-  }, [items, query, type]);
+    const q = query.toLowerCase();
+    return items
+      .filter((it) => {
+        const matchesType = type === "all" || it.type === type;
+        const matchesQuery = !q || it.title.toLowerCase().includes(q) || it.tags.some((t) => t.toLowerCase().includes(q));
+        const matchesStar = !starOnly || !!it.starred;
+        return matchesType && matchesQuery && matchesStar;
+      })
+      .sort((a, b) => Number(!!b.starred) - Number(!!a.starred));
+  }, [items, query, type, starOnly]);
 
   const addMock = () => {
     const next: LakeItem = {
@@ -45,11 +51,34 @@ const Lake = () => {
       title: "New insight: users prefer concise carousels",
       source: "Manual",
       tags: ["format", "carousels"],
+      starred: false,
     };
     setItems([next, ...items]);
     toast.success("Added to Content Lake", { description: next.title });
   };
 
+  const addFromUrl = () => {
+    if (!urlInput.trim()) return toast.error("Please paste a URL");
+    try {
+      const u = new URL(urlInput.trim());
+      const host = u.hostname.replace(/^www\./, "");
+      const titleGuess = `Saved link – ${host}${u.pathname !== "/" ? u.pathname : ""}`;
+      const next: LakeItem = {
+        id: String(items.length + 1),
+        type: "link",
+        title: titleGuess,
+        source: host,
+        tags: [],
+        url: u.toString(),
+        starred: false,
+      };
+      setItems([next, ...items]);
+      setUrlInput("");
+      toast.success("Link added", { description: host });
+    } catch (e) {
+      toast.error("Invalid URL");
+    }
+  };
   return (
     <div className="min-h-screen bg-background text-foreground premium-gradient-bg">
       <SEO
@@ -80,19 +109,39 @@ const Lake = () => {
                 <SelectItem value="link">Links</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="premium" size="pill" onClick={addMock}>Add mock item</Button>
+            <Button variant={starOnly ? "premium" : "outline"} size="pill" onClick={() => setStarOnly((s) => !s)} aria-pressed={starOnly}>
+              <Star className="h-4 w-4 mr-2" aria-hidden />{starOnly ? "Starred only" : "Include all"}
+            </Button>
+          </div>
+
+          <div className="mt-4 flex flex-col md:flex-row gap-3 md:items-center">
+            <Input placeholder="Paste post URL…" value={urlInput} onChange={(e) => setUrlInput(e.target.value)} aria-label="Add by URL" className="flex-1" />
+            <Button variant="premium" size="pill" onClick={addFromUrl}>Add by URL</Button>
+            <Button variant="soft" size="pill" onClick={addMock}>Add mock item</Button>
           </div>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((it) => (
               <Card key={it.id} className="elevation-1 hover-scale animate-fade-in">
                 <CardHeader>
-                  <CardTitle className="text-base tracking-tight flex items-center gap-2">
-                    {it.type === "clip" ? <Film className="h-4 w-4 opacity-80" aria-hidden /> : it.type === "note" ? <StickyNote className="h-4 w-4 opacity-80" aria-hidden /> : <LinkIcon className="h-4 w-4 opacity-80" aria-hidden />}
-                    <Badge variant="secondary" className="capitalize">{it.type}</Badge>
-                    <span className="font-medium">{it.title}</span>
-                  </CardTitle>
-                  <CardDescription className="mt-1">Source: {it.source}</CardDescription>
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <CardTitle className="text-base tracking-tight flex items-center gap-2">
+                        {it.type === "clip" ? <Film className="h-4 w-4 opacity-80" aria-hidden /> : it.type === "note" ? <StickyNote className="h-4 w-4 opacity-80" aria-hidden /> : <LinkIcon className="h-4 w-4 opacity-80" aria-hidden />}
+                        <Badge variant="secondary" className="capitalize">{it.type}</Badge>
+                        <span className="font-medium">{it.title}</span>
+                      </CardTitle>
+                      <CardDescription className="mt-1">Source: {it.source}</CardDescription>
+                    </div>
+                    <Button
+                      variant={it.starred ? "premium" : "ghost"}
+                      size="icon"
+                      aria-label={it.starred ? "Unstar" : "Star"}
+                      onClick={() => setItems((list) => list.map((x) => x.id === it.id ? { ...x, starred: !x.starred } : x))}
+                    >
+                      {it.starred ? <Star className="h-4 w-4" aria-hidden /> : <StarOff className="h-4 w-4" aria-hidden />}
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">

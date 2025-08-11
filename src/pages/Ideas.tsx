@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { Star, StarOff } from "lucide-react";
 
 interface Idea {
   id: string;
@@ -16,12 +17,13 @@ interface Idea {
   details: string;
   category: string;
   score: number;
+  starred?: boolean;
 }
 
 const initialIdeas: Idea[] = [
-  { id: "1", title: "Why we ship in public (and how)", details: "Share the 3-step cadence and the outcomes.", category: "Brand", score: 7 },
-  { id: "2", title: "Pricing transparency post", details: "Show our pricing rationale and invite feedback.", category: "Product", score: 6 },
-  { id: "3", title: "Founder lessons: week in review", details: "Short carousel of key learnings.", category: "Founder", score: 5 },
+  { id: "1", title: "Why we ship in public (and how)", details: "Share the 3-step cadence and the outcomes.", category: "Brand", score: 7, starred: true },
+  { id: "2", title: "Pricing transparency post", details: "Show our pricing rationale and invite feedback.", category: "Product", score: 6, starred: false },
+  { id: "3", title: "Founder lessons: week in review", details: "Short carousel of key learnings.", category: "Founder", score: 5, starred: false },
 ];
 
 const Ideas = () => {
@@ -30,12 +32,19 @@ const Ideas = () => {
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState<"score-desc" | "recent">("score-desc");
+  const [starOnly, setStarOnly] = useState(false);
 
-  const displayIdeas = [...ideas].sort((a, b) => (sort === "score-desc" ? b.score - a.score : Number(b.id) - Number(a.id)));
+  const displayIdeas = [...ideas]
+    .filter((i) => !starOnly || !!i.starred)
+    .sort((a, b) => {
+      const starOrder = Number(!!b.starred) - Number(!!a.starred);
+      if (starOrder !== 0) return starOrder;
+      return sort === "score-desc" ? b.score - a.score : Number(b.id) - Number(a.id);
+    });
 
   const addIdea = () => {
     if (!title.trim()) return toast.error("Please add a title");
-    const next: Idea = { id: String(ideas.length + 1), title, details, category: category || "General", score: 5 };
+    const next: Idea = { id: String(ideas.length + 1), title, details, category: category || "General", score: 5, starred: false };
     setIdeas([next, ...ideas]);
     setTitle("");
     setDetails("");
@@ -65,25 +74,42 @@ const Ideas = () => {
 
         <section className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-6 items-start">
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
               <span className="text-sm text-muted-foreground">Ideas: {ideas.length}</span>
-              <Select value={sort} onValueChange={(v) => setSort(v as any)}>
-                <SelectTrigger className="w-[180px]"><SelectValue placeholder="Sort" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="score-desc">Score (top)</SelectItem>
-                  <SelectItem value="recent">Recent</SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex items-center gap-2">
+                <Select value={sort} onValueChange={(v) => setSort(v as any)}>
+                  <SelectTrigger className="w-[180px]"><SelectValue placeholder="Sort" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="score-desc">Score (top)</SelectItem>
+                    <SelectItem value="recent">Recent</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button variant={starOnly ? "premium" : "outline"} size="sm" onClick={() => setStarOnly((s) => !s)} aria-pressed={starOnly}>
+                  <Star className="h-4 w-4 mr-2" aria-hidden />{starOnly ? "Starred only" : "Include all"}
+                </Button>
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {displayIdeas.map((idea) => (
                 <Card key={idea.id} className="elevation-1 hover-scale animate-fade-in">
                   <CardHeader>
-                    <CardTitle className="text-lg tracking-tight">{idea.title}</CardTitle>
-                    <CardDescription className="flex items-center gap-2">
-                      <Badge variant="secondary">{idea.category || "General"}</Badge>
-                      <span className="text-xs">Score: {idea.score}</span>
-                    </CardDescription>
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <CardTitle className="text-lg tracking-tight">{idea.title}</CardTitle>
+                        <CardDescription className="flex items-center gap-2">
+                          <Badge variant="secondary">{idea.category || "General"}</Badge>
+                          <span className="text-xs">Score: {idea.score}</span>
+                        </CardDescription>
+                      </div>
+                      <Button
+                        variant={idea.starred ? "premium" : "ghost"}
+                        size="icon"
+                        aria-label={idea.starred ? "Unstar" : "Star"}
+                        onClick={() => setIdeas((list) => list.map((i) => i.id === idea.id ? { ...i, starred: !i.starred } : i))}
+                      >
+                        {idea.starred ? <Star className="h-4 w-4" aria-hidden /> : <StarOff className="h-4 w-4" aria-hidden />}
+                      </Button>
+                    </div>
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">{idea.details}</p>
