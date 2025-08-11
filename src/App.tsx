@@ -18,21 +18,23 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/lake" element={<Lake />} />
-          <Route path="/ideas" element={<Ideas />} />
-          <Route path="/generate" element={<Generate />} />
-          <Route path="/approvals" element={<Approvals />} />
-          <Route path="/schedule" element={<Schedule />} />
-          <Route path="/analytics" element={<Analytics />} />
-          {/* Fallback for unknown routes */}
-          <Route path="*" element={<Navigate to="/lake" replace />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="premium-gradient-bg min-h-screen">
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/lake" element={<Lake />} />
+            <Route path="/ideas" element={<Ideas />} />
+            <Route path="/generate" element={<Generate />} />
+            <Route path="/approvals" element={<Approvals />} />
+            <Route path="/schedule" element={<Schedule />} />
+            <Route path="/analytics" element={<Analytics />} />
+            {/* Fallback for unknown routes */}
+            <Route path="*" element={<Navigate to="/lake" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </TooltipProvider>
   </QueryClientProvider>
 );

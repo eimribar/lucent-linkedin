@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <header className={cn("glass-panel elevation-1 safe-top sticky top-0 z-40")}
+    <header className={cn("glass-panel elevation-2 safe-top sticky top-0 z-40")}
       role="banner"
       aria-label="Primary Navigation">
       <nav className="mx-auto max-w-[1440px] h-14 md:h-16 px-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div aria-hidden className="h-6 w-6 rounded-md bg-foreground/90" />
-          <Link to="/" aria-label="LinkedIn Content Engine" className="text-sm font-medium tracking-tight">
+          <div aria-hidden className="h-6 w-6 rounded-md bg-gradient-to-br from-primary to-accent" />
+          <Link to="/" aria-label="LinkedIn Content Engine" className="text-sm font-semibold tracking-tight">
             LinkedIn Content Engine
           </Link>
         </div>
