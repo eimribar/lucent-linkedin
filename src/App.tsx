@@ -13,30 +13,32 @@ import Approvals from "./pages/Approvals";
 import Schedule from "./pages/Schedule";
 import Analytics from "./pages/Analytics";
 import Onboarding from "./pages/Onboarding";
+import MainLayout from "./layouts/MainLayout";
+import OnboardingLayout from "./layouts/OnboardingLayout";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <div className="premium-gradient-bg min-h-screen">
+      <>
         <Toaster />
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/lake" element={<Lake />} />
-            <Route path="/ideas" element={<Ideas />} />
-            <Route path="/generate" element={<Generate />} />
-            <Route path="/onboarding" element={<Onboarding />} />
-            <Route path="/approvals" element={<Approvals />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/" element={<MainLayout><Index /></MainLayout>} />
+            <Route path="/lake" element={<MainLayout><Lake /></MainLayout>} />
+            <Route path="/ideas" element={<MainLayout><Ideas /></MainLayout>} />
+            <Route path="/generate" element={<MainLayout><Generate /></MainLayout>} />
+            <Route path="/onboarding" element={<OnboardingLayout><Onboarding /></OnboardingLayout>} />
+            <Route path="/approvals" element={<MainLayout><Approvals /></MainLayout>} />
+            <Route path="/schedule" element={<MainLayout><Schedule /></MainLayout>} />
+            <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />
             {/* Fallback for unknown routes */}
             <Route path="*" element={<Navigate to="/lake" replace />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      </>
     </TooltipProvider>
   </QueryClientProvider>
 );

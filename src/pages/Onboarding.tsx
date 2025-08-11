@@ -1,4 +1,4 @@
-import NavBar from "@/components/layout/NavBar";
+
 import SEO from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -82,15 +82,15 @@ const Onboarding = () => {
   const done = step === total - 1 && answers[step].trim().length > 0;
 
   return (
-    <div className="min-h-screen bg-background text-foreground premium-gradient-bg">
+    <div className="min-h-screen bg-background text-foreground">
       <SEO
         title="Onboarding – 10-Question Story Mining"
         description="Typeform-style onboarding to capture authentic stories, beliefs, and vision."
         canonicalPath="/onboarding"
       />
-      <NavBar />
+      
 
-      <main className="mx-auto max-w-[960px] px-4 pb-16 pt-8 animate-enter">
+      <main className="mx-auto max-w-2xl px-4 pb-20 pt-10 animate-enter">
         <header className="flex flex-col gap-2">
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">10-Question Story Mining</h1>
           <p className="text-muted-foreground">10–15 minutes. One question at a time. Your answers shape an on-brand content strategy.</p>
@@ -123,7 +123,7 @@ const Onboarding = () => {
           </div>
 
           {/* Question Card */}
-          <Card className="elevation-2 bg-card/90">
+          <Card className="bg-card/95 supports-[backdrop-filter]:bg-card/80 border border-border shadow-xl">
             <CardHeader>
               <div className="text-xs uppercase tracking-wide text-muted-foreground">{current.category}</div>
               <h2 className="text-2xl md:text-3xl font-medium leading-tight">{current.prompt}</h2>
