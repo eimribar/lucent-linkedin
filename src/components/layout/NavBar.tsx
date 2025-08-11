@@ -10,7 +10,7 @@ const NavBar = () => {
       aria-label="Primary Navigation">
       <nav className="mx-auto max-w-[1440px] h-14 md:h-16 px-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div aria-hidden className="h-6 w-6 rounded-md bg-gradient-to-br from-primary to-accent" />
+          <div aria-hidden className="h-6 w-6 rounded-md bg-gradient-brand" />
           <Link to="/" aria-label="LinkedIn Content Engine" className="text-sm font-semibold tracking-tight">
             LinkedIn Content Engine
           </Link>
@@ -26,7 +26,7 @@ const NavBar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button asChild variant="soft" size="pill" className="hidden md:inline-flex"><Link to="/ideas">Get Started</Link></Button>
+          <Button asChild variant="premium" size="pill" className="hidden md:inline-flex"><Link to="/ideas">Get Started</Link></Button>
           <button aria-label="Open menu" className="md:hidden h-10 w-10 rounded-full hover:bg-muted grid place-items-center">
             <Menu className="opacity-80" />
           </button>
