@@ -2,6 +2,7 @@ import SEO from "@/components/seo/SEO";
 import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 import { Confetti, type ConfettiRef } from "@/components/ui/confetti";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { Trophy } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
@@ -43,6 +44,8 @@ const Onboarding = () => {
   const [xp, setXp] = useState(0);
   const confettiRef = useRef<ConfettiRef>(null);
   const current = useMemo(() => QUESTIONS[step], [step]);
+  const completed = useMemo(() => answers.filter(a => a.trim().length > 0).length, [answers]);
+  const percent = useMemo(() => Math.round((completed / total) * 100), [completed, total]);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
@@ -87,7 +90,7 @@ const Onboarding = () => {
         }} transition={{
           duration: 0.25,
           ease: "easeOut"
-        }} className="mb-10 sm:mb-20 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
+        }} className="mb-6 sm:mb-10 text-3xl font-semibold tracking-tight text-center sm:text-3xl text-gradient-brand">
             {current.prompt}
           </motion.h1>
         </AnimatePresence>
@@ -97,7 +100,7 @@ const Onboarding = () => {
           <PlaceholdersAndVanishInput placeholders={[current.prompt]} onChange={() => {}} onSubmit={handleSubmit} />
 
           {/* Controls: Back and Skip */}
-          <nav className="mt-4 flex items-center justify-between">
+          <nav className="mt-3 flex items-center justify-center gap-3">
             <Button type="button" variant="ghost" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>
               Back
             </Button>
@@ -105,6 +108,9 @@ const Onboarding = () => {
               Skip
             </Button>
           </nav>
+          <div className="mt-4">
+            <Progress value={percent} aria-label="Onboarding progress" className="h-1.5" />
+          </div>
         </section>
         <aside className="fixed bottom-6 inset-x-0 flex justify-center">
           <div className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 border border-border bg-card/80 supports-[backdrop-filter]:bg-card/60 backdrop-blur shadow-sm text-xs sm:text-sm">
