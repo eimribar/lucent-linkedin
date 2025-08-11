@@ -1,4 +1,5 @@
 import SEO from "@/components/seo/SEO";
+import UserNav from "@/components/layout/UserNav";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +17,7 @@ const Strategy = () => {
       />
 
       <main className="mx-auto max-w-2xl px-4 py-16 animate-enter">
+        <UserNav />
         <header className="text-center">
           <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-gradient-brand">Your Content Strategy</h1>
           <p className="mt-4 text-base md:text-lg text-muted-foreground">

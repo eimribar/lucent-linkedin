@@ -17,6 +17,7 @@ import OnboardingLayout from "./layouts/OnboardingLayout";
 import ImportPage from "./pages/Import";
 import Strategy from "./pages/Strategy";
 import UserLayout from "./layouts/UserLayout";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/strategy" element={<UserLayout><Strategy /></UserLayout>} />
             <Route path="/approve" element={<UserLayout><Approvals /></UserLayout>} />
             <Route path="/approvals" element={<Navigate to="/approve" replace />} />
+            <Route path="/profile" element={<UserLayout><Profile /></UserLayout>} />
             <Route path="/schedule" element={<MainLayout><Schedule /></MainLayout>} />
             <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />
             {/* Fallback for unknown routes */}

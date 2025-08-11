@@ -1,4 +1,5 @@
 import SEO from "@/components/seo/SEO";
+import UserNav from "@/components/layout/UserNav";
 import SwipeDeck from "@/components/swipe/SwipeDeck";
 
 const Approvals = () => {
@@ -10,7 +11,8 @@ const Approvals = () => {
         canonicalPath="/approve"
       />
       <main className="mx-auto max-w-2xl px-4 py-16 animate-enter">
-        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-gradient-brand">Approvals</h1>
+        <UserNav />
+        <h1 className="text-5xl md:text-6xl font-semibold tracking-tight text-gradient-brand text-center">Approvals</h1>
         <p className="mt-4 text-base md:text-lg text-muted-foreground text-center">
           Quickly review drafts: swipe right to approve, left to decline, tap to edit.
         </p>
