@@ -198,3 +198,19 @@
   }
 }
 
+/* Colorful star utilities */
+@layer utilities {
+  .star-pretty { 
+    color: hsl(var(--warning-amber)); 
+    filter: drop-shadow(0 0 10px hsl(var(--warning-amber) / 0.45));
+    transition: transform var(--duration-fast) var(--ease-out-quint), filter var(--duration-fast) var(--ease-out-quint);
+  }
+  .star-pretty:hover { 
+    filter: drop-shadow(0 0 14px hsl(var(--warning-amber) / 0.65));
+    transform: scale(1.05);
+  }
+  .star-dim { 
+    color: hsl(var(--muted-foreground));
+  }
+}
+

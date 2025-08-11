@@ -134,12 +134,17 @@ const Lake = () => {
                       <CardDescription className="mt-1">Source: {it.source}</CardDescription>
                     </div>
                     <Button
-                      variant={it.starred ? "premium" : "ghost"}
+                      variant="ghost"
                       size="icon"
                       aria-label={it.starred ? "Unstar" : "Star"}
+                      title={it.starred ? "Unstar" : "Star"}
                       onClick={() => setItems((list) => list.map((x) => x.id === it.id ? { ...x, starred: !x.starred } : x))}
                     >
-                      {it.starred ? <Star className="h-4 w-4" aria-hidden /> : <StarOff className="h-4 w-4" aria-hidden />}
+                      {it.starred ? (
+                        <Star className="h-5 w-5 star-pretty" aria-hidden fill="currentColor" strokeWidth={1.4} />
+                      ) : (
+                        <StarOff className="h-5 w-5 star-dim" aria-hidden strokeWidth={1.4} />
+                      )}
                     </Button>
                   </div>
                 </CardHeader>

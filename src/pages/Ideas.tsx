@@ -102,12 +102,17 @@ const Ideas = () => {
                         </CardDescription>
                       </div>
                       <Button
-                        variant={idea.starred ? "premium" : "ghost"}
+                        variant="ghost"
                         size="icon"
                         aria-label={idea.starred ? "Unstar" : "Star"}
+                        title={idea.starred ? "Unstar" : "Star"}
                         onClick={() => setIdeas((list) => list.map((i) => i.id === idea.id ? { ...i, starred: !i.starred } : i))}
                       >
-                        {idea.starred ? <Star className="h-4 w-4" aria-hidden /> : <StarOff className="h-4 w-4" aria-hidden />}
+                        {idea.starred ? (
+                          <Star className="h-5 w-5 star-pretty" aria-hidden fill="currentColor" strokeWidth={1.4} />
+                        ) : (
+                          <StarOff className="h-5 w-5 star-dim" aria-hidden strokeWidth={1.4} />
+                        )}
                       </Button>
                     </div>
                   </CardHeader>
