@@ -17,17 +17,16 @@ const NavBar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-2">
-          <Link to="/ideate" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Ideate</Link>
-          <Link to="/research" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Research</Link>
-          <Link to="/draft" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Draft</Link>
-          <Link to="/review" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Review</Link>
-          <Link to="/approve" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Approve</Link>
+          <Link to="/lake" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Lake</Link>
+          <Link to="/ideas" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Ideas</Link>
+          <Link to="/generate" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Content Generation</Link>
+          <Link to="/approvals" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Approvals</Link>
           <Link to="/schedule" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Schedule</Link>
           <Link to="/analytics" className="px-3 py-2 rounded-full hover:bg-muted text-sm transition-colors">Analytics</Link>
         </div>
 
         <div className="flex items-center gap-2">
-          <Button asChild variant="soft" size="pill" className="hidden md:inline-flex"><Link to="/ideate">Get Started</Link></Button>
+          <Button asChild variant="soft" size="pill" className="hidden md:inline-flex"><Link to="/ideas">Get Started</Link></Button>
           <button aria-label="Open menu" className="md:hidden h-10 w-10 rounded-full hover:bg-muted grid place-items-center">
             <Menu className="opacity-80" />
           </button>
