@@ -2,10 +2,10 @@
 import SEO from "@/components/seo/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
+import { PlaceholdersAndVanishInput } from "@/components/ui/placeholders-and-vanish-input";
 
 import { Trophy, ArrowRight, ArrowLeft, Info } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 interface Question {
@@ -34,18 +34,13 @@ const Onboarding = () => {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(total).fill(""));
   const [touched, setTouched] = useState(false);
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  
 
   const current = QUESTIONS[step];
   const completed = useMemo(() => answers.filter((a) => a.trim().length > 0).length, [answers]);
   const progress = useMemo(() => ((step) / Math.max(1, total)) * 100, [step]);
   const xp = useMemo(() => completed * 10, [completed]);
 
-  useEffect(() => {
-    // Autofocus current textarea
-    const t = setTimeout(() => inputRef.current?.focus(), 50);
-    return () => clearTimeout(t);
-  }, [step]);
 
   const update = (val: string) => {
     setAnswers((arr) => {
@@ -72,12 +67,6 @@ const Onboarding = () => {
     if (step < total - 1) setStep((s) => s + 1);
   };
 
-  const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      next();
-    }
-  };
 
   const done = step === total - 1 && answers[step].trim().length > 0;
 
@@ -129,21 +118,25 @@ const Onboarding = () => {
               <h2 className="text-2xl md:text-3xl font-medium leading-tight">{current.prompt}</h2>
             </CardHeader>
             <CardContent>
-              <Textarea
-                ref={inputRef}
-                value={answers[step]}
+              <PlaceholdersAndVanishInput
+                placeholders={[current.placeholder || current.prompt]}
                 onChange={(e) => update(e.target.value)}
-                onKeyDown={handleKey}
-                placeholder={current.placeholder}
-                aria-label={`Answer for question ${step + 1}`}
-                className="min-h-[160px] md:min-h-[200px]"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setTouched(true);
+                  if ((answers[step] || "").trim()) {
+                    next();
+                  } else {
+                    toast("Add a quick note", { description: "Even 1–2 sentences help us tailor content authentically." });
+                  }
+                }}
               />
               {touched && !answers[step]?.trim() && (
                 <p className="mt-2 text-sm text-destructive">Please add at least a short sentence.</p>
               )}
             </CardContent>
             <CardFooter className="flex items-center justify-between gap-2">
-              <div className="text-xs text-muted-foreground">Press Cmd/Ctrl + Enter to continue</div>
+              <div className="text-xs text-muted-foreground">Press Enter to continue</div>
               <div className="flex items-center gap-2">
                 <Button variant="outline" size="pill" onClick={back} disabled={step === 0} aria-label="Back">
                   <ArrowLeft className="h-4 w-4 mr-1" /> Back
