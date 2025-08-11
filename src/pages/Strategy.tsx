@@ -24,7 +24,7 @@ const Strategy = () => {
         </section>
 
         {/* Layout */}
-        <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-[2fr_1fr]">
+        <div className="mt-8 grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
           {/* Left column */}
           <div className="space-y-6">
             <section id="pillars" className="animate-fade-in scroll-mt-28">
