@@ -76,6 +76,19 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
+			fontFamily: {
+				sans: [
+					'Plus Jakarta Sans',
+					'ui-sans-serif',
+					'system-ui',
+					'-apple-system',
+					'Segoe UI',
+					'Roboto',
+					'Helvetica Neue',
+					'Arial',
+					'sans-serif'
+				]
+			},
 			keyframes: {
 				// Accordion
 				'accordion-down': { from: { height: '0', opacity: '0' }, to: { height: 'var(--radix-accordion-content-height)', opacity: '1' } },

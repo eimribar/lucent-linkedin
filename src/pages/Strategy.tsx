@@ -8,7 +8,7 @@ const Pill = ({ children }: { children: string }) => (
 
 const Strategy = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background premium-gradient-bg text-foreground">
       <SEO
         title="Amnon Cohen – Content Strategy"
         description="Core narrative, pillars, cadence, hooks, and themes tailored to Amnon's voice."
@@ -27,7 +27,7 @@ const Strategy = () => {
           {/* Left column */}
           <div className="lg:col-span-2 space-y-6">
             {/* Core Narrative */}
-            <section id="narrative" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
+            <section id="narrative" className="border border-border rounded-2xl p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Core Narrative</h2>
               <p className="mt-2 text-sm md:text-base text-muted-foreground">
                 Ex‑Microsoft PM who learned the hard way that simple beats complex. Ships daily at Bounce AI. Believes in data over opinions.
@@ -35,7 +35,7 @@ const Strategy = () => {
             </section>
 
             {/* Pillars */}
-            <section id="pillars" className="border-gradient-brand rounded-2xl p-4 md:p-6 animate-fade-in">
+            <section id="pillars" className="border border-border rounded-2xl p-4 md:p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <div className="flex items-center justify-between">
                 <h2 className="text-lg font-medium tracking-tight">Content Pillars + Unique Angles</h2>
                 <div className="hidden md:flex flex-wrap gap-2">
@@ -118,7 +118,7 @@ const Strategy = () => {
             </section>
 
             {/* Monthly Themes */}
-            <section id="themes" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
+            <section id="themes" className="border border-border rounded-2xl p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Monthly Themes</h2>
               <ol className="mt-3 space-y-2 text-sm md:text-base text-muted-foreground list-decimal pl-5">
                 <li><span className="text-foreground font-medium">Month 1:</span> Simplicity beats complexity (her core belief)</li>
@@ -143,7 +143,7 @@ const Strategy = () => {
               </ul>
             </nav>
             {/* Weekly Mix */}
-            <section id="weekly-mix" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
+            <section id="weekly-mix" className="border border-border rounded-2xl p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Content Mix (Weekly)</h2>
               <ul className="mt-3 space-y-3 text-sm">
                 <li>
@@ -170,7 +170,7 @@ const Strategy = () => {
             </section>
 
             {/* Hooks */}
-            <section id="hooks" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
+            <section id="hooks" className="border border-border rounded-2xl p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Hook Templates</h2>
               <ol className="mt-3 space-y-2 list-decimal pl-5 text-sm text-muted-foreground">
                 <li><span className="text-foreground">The Failure Hook:</span> “I built a feature nobody wanted. 6 months. 2% adoption. Here's what I learned:”</li>
@@ -182,7 +182,7 @@ const Strategy = () => {
             </section>
 
             {/* Integration */}
-            <section id="integration" className="border-gradient-brand rounded-2xl p-6 animate-fade-in">
+            <section id="integration" className="border border-border rounded-2xl p-6 bg-card/60 backdrop-blur supports-[backdrop-filter]:bg-card/40 shadow-sm animate-fade-in">
               <h2 className="text-lg font-medium tracking-tight">Natural Bounce AI Integration</h2>
               <ul className="mt-2 text-sm text-muted-foreground space-y-1">
                 <li>• 30% of posts mention Bounce directly (customer wins, culture, differentiation)</li>
